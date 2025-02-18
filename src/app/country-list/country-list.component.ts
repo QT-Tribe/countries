@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CountryService } from '../country.service';
+import { CountryService } from '../shared/services/country.service';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
@@ -11,18 +11,14 @@ import { map, catchError } from 'rxjs/operators';
   templateUrl: './country-list.component.html',
   styleUrls: ['./country-list.component.scss'],
 })
-export class CountryListComponent implements OnInit {
-  countries$!: Observable<string[]>;
+export class CountryListComponent {
+  countries$: Observable<string[]> = this.countryService.getCountries().pipe(
+    map((data) => data.map((country) => country.name.common)),
+    catchError((error) => {
+      console.error('Error fetching countries:', error);
+      return of([]);
+    }),
+  );
 
   constructor(private countryService: CountryService) {}
-
-  ngOnInit(): void {
-    this.countries$ = this.countryService.getCountries().pipe(
-      map((data) => data.map((country) => country.name.common)),
-      catchError((error) => {
-        console.error('Error fetching countries:', error);
-        return of([]);
-      }),
-    );
-  }
 }
