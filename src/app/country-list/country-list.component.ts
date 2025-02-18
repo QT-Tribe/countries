@@ -1,7 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { CountryService } from '../country.service';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { map, Observable, tap } from 'rxjs';
+import { CountryService } from '../country.service';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Component({
   imports: [CommonModule],
@@ -11,23 +12,17 @@ import { map, Observable, tap } from 'rxjs';
   styleUrls: ['./country-list.component.scss'],
 })
 export class CountryListComponent implements OnInit {
-  countries: string[] = [];
+  countries$!: Observable<string[]>;
 
-  constructor(
-    private countryService: CountryService,
-    private cdr: ChangeDetectorRef,
-  ) {}
+  constructor(private countryService: CountryService) {}
 
   ngOnInit(): void {
-    this.countryService.getCountries().subscribe(
-      (data) => {
-        this.countries = data.map((country) => country.name.common);
-        console.log('Countries in component:', this.countries);
-        this.cdr.detectChanges();
-      },
-      (error) => {
+    this.countries$ = this.countryService.getCountries().pipe(
+      map((data) => data.map((country) => country.name.common)),
+      catchError((error) => {
         console.error('Error fetching countries:', error);
-      },
+        return of([]);
+      }),
     );
   }
 }

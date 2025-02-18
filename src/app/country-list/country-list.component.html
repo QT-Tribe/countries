@@ -1,5 +1,5 @@
 <h2>Country List</h2>
-<p>Total Countries: {{ countries.length }}</p>
+<p>Total Countries: {{ (countries$ | async)?.length }}</p>
 <ul>
-  <li *ngFor="let country of countries">{{ country }}</li>
+  <li *ngFor="let country of countries$ | async">{{ country }}</li>
 </ul>
