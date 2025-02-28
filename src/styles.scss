@@ -1,1 +1,33 @@
 @use 'tailwindcss';
+
+
+@custom-variant dark (&:where(.dark, .dark *));
+@theme {
+  --color-white: #ffffff;
+  --color-black:  #202c37;
+  --color-grey-100: #fafafa;
+  --color-grey-600: #2b3945;
+  --color-grey-700:  #111517;
+
+}
+
+// body {
+//   background-color: var(--bg-primary);
+//   color: var(--text-primary);
+//   transition: background-color 0.3s ease, color 0.3s ease;
+// }
+
+// header {
+//   background-color: var(--element-bg);
+// }
+
+// button,
+// input,
+// select {
+//   background-color: var(--input-bg);
+//   color: var(--text-primary);
+// }
+
+// .shadow-md {
+//   box-shadow: 0 2px 4px var(--shadow);
+// }
