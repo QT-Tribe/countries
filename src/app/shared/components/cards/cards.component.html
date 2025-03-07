@@ -1,0 +1,29 @@
+<div class="px-4 grid gap-y-4 sm:px-20 sm:grid-cols-4 sm:gap-x-4">
+  @for (country of countries$ | async; track country.name) {
+    <div
+      class="bg-white w-[267px] rounded-lg overflow-hidden text-[15px] cursor-pointer shadow dark:bg-grey-600"
+    >
+      <img
+        [src]="country.flags.png"
+        [alt]="country.name.common + ' Flag'"
+        class="w-full h-[160px] object-cover"
+      />
+      <div class="p-6 flex flex-col gap-2">
+        <h2 class="text-lg mb-2 font-extrabold">{{ country.name.common }}</h2>
+        <div class="flex items-center gap-1">
+          <span class="font-semibold">Population:</span>
+          <span>{{ country.population | number }}</span>
+        </div>
+
+        <div class="flex items-center gap-1">
+          <span class="font-semibold">Region:</span>
+          <span>{{ country.region }}</span>
+        </div>
+        <div class="flex items-center gap-1">
+          <span class="font-semibold">Capital:</span>
+          <span>{{ country.capital }}</span>
+        </div>
+      </div>
+    </div>
+  }
+</div>

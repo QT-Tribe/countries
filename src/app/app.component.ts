@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { HeaderComponent } from './shared/components/header/header.component';
-import { CountryListComponent } from './country-list/country-list.component';
+import { HomeComponent } from './pages/home/home.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, CountryListComponent, HeaderComponent],
+  imports: [CommonModule, HeaderComponent, HomeComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
