@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Country } from '../interfaces/country.interface';
@@ -8,7 +8,7 @@ import { Country } from '../interfaces/country.interface';
 export class CountryService {
   private apiUrl = 'https://restcountries.com/v3.1/all';
 
-  constructor(private http: HttpClient) {}
+  private readonly http = inject(HttpClient);
 
   getCountries(): Observable<Country[]> {
     return this.http.get<Country[]>(this.apiUrl);

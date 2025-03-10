@@ -33,8 +33,6 @@ export class ThemeService {
   }
 
   private applyTheme(theme: ThemeMode): void {
-    // document.documentElement.setAttribute('data-theme', theme);
-
     if (theme === 'dark') {
       document.documentElement.classList.remove('light');
       document.documentElement.classList.add('dark');
