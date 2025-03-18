@@ -12,15 +12,5 @@ import { catchError, map, Observable, of } from 'rxjs';
   styleUrl: './cards.component.scss',
 })
 export class CardsComponent {
-  private readonly countryService = inject(CountryService);
-
-  countries$: Observable<Country[]> = this.countryService.getCountries().pipe(
-    map((countries) =>
-      countries.sort((a, b) => a.name.common.localeCompare(b.name.common)),
-    ),
-    catchError((error) => {
-      console.error('Error fetching countries:', error);
-      return of([]);
-    }),
-  );
+  public readonly countryService = inject(CountryService);
 }

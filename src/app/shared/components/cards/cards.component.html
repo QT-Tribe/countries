@@ -1,5 +1,5 @@
 <div class="px-4 grid gap-y-4 sm:px-20 sm:grid-cols-4 sm:gap-x-4">
-  @for (country of countries$ | async; track country.name) {
+  @for (country of countryService.countries(); track country.name.common) {
     <div
       class="bg-white w-[267px] rounded-lg overflow-hidden text-[15px] cursor-pointer shadow dark:bg-grey-600"
     >
