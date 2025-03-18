@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, inject } from '@angular/core';
 import { CountryService } from '../../../../shared/services/country.service';
 
 @Component({
@@ -9,11 +9,19 @@ import { CountryService } from '../../../../shared/services/country.service';
   styleUrl: './filter.component.scss',
 })
 export class FilterComponent {
-  regions: string[] = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
-  isOpen = false;
-  selectedRegion: string | null = null;
+  public regions: string[] = [
+    'Africa',
+    'Americas',
+    'Asia',
+    'Europe',
+    'Oceania',
+  ];
+  public isOpen = false;
+  public selectedRegion: string | null = null;
 
-  constructor(private countryService: CountryService) {}
+  private countryService = inject(CountryService);
+
+  private elementRef = inject(ElementRef);
 
   public toggleDropdown(): void {
     this.isOpen = !this.isOpen;
@@ -39,5 +47,12 @@ export class FilterComponent {
 
   public closeDropdown(): void {
     this.isOpen = false;
+  }
+
+  @HostListener('document:click', ['$event'])
+  public clickOutside(event: Event) {
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      this.isOpen = false;
+    }
   }
 }
