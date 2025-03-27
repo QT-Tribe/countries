@@ -1,0 +1,64 @@
+<div class="relative inline-block text-left">
+  <div>
+    <button
+      type="button"
+      class="relative inline-flex w-[200px] h-[56px] justify-start items-center rounded-md bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 px-6 text-sm shadow-md"
+      id="region-menu-button"
+      (click)="toggleDropdown()"
+      aria-expanded="isOpen"
+      aria-haspopup="true"
+    >
+      <span
+        class="text-[16px] font-normal leading-[20px] tracking-[0px] text-black dark:text-white"
+      >
+        {{ selectedRegion || "Filter by Region" }}
+      </span>
+      <svg
+        class="absolute w-[16px] h-[16px] top-[20px] right-6 text-black dark:text-white"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </button>
+  </div>
+  @if (isOpen) {
+    <div
+      class="absolute left-0 z-10 mt-2 w-[200px] origin-top-left bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 shadow-lg rounded-md overflow-hidden"
+      role="menu"
+      aria-orientation="vertical"
+      aria-labelledby="region-menu-button"
+      tabindex="-1"
+    >
+      <div class="py-1" role="none">
+        @for (region of regions; track region) {
+          <a
+            href="#"
+            class="block px-6 py-4 text-[16px] font-normal leading-[20px] text-black dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            role="menuitem"
+            tabindex="-1"
+            (click)="selectRegion(region, $event)"
+          >
+            {{ region }}
+          </a>
+        }
+        @if (selectedRegion) {
+          <a
+            href="#"
+            class="block px-6 py-4 text-[16px] font-normal leading-[20px] dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            role="menuitem"
+            tabindex="-1"
+            (click)="clearFilter($event)"
+          >
+            Clear Filter
+          </a>
+        }
+      </div>
+    </div>
+  }
+</div>
